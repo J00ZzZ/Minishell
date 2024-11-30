@@ -4,7 +4,7 @@ CC = gcc
 
 RM = rm -f
 
-SRC = philo.c \
+SRC = main.c \
 
 CFLAGS = -Wall -Werror -Wextra
 

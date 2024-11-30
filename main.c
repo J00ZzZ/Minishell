@@ -6,11 +6,13 @@
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 04:05:30 by liyu-her          #+#    #+#             */
-/*   Updated: 2024/11/21 17:32:50 by liyu-her         ###   ########.fr       */
+/*   Updated: 2024/11/25 22:17:13 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int main(int ac, char **av, char **env)
+#include "inc/minishell.h"
+
+int main(int ac, char **av, char **ev)
 {
     
 }

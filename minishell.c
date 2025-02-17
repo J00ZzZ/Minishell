@@ -1,28 +1,66 @@
 #include "minishell.h"
 
+// Custom function to read input using read()
+char *read_input(void) {
+    char buffer[READ_BUFFER_SIZE];
+    char *input = NULL;
+    ssize_t bytes_read;
+    size_t total_size = 0;
+
+    while ((bytes_read = read(STDIN_FILENO, buffer, READ_BUFFER_SIZE - 1)) {
+        if (bytes_read < 0) {
+            perror("read");
+            ft_free(input);
+            return NULL;
+        }
+        buffer[bytes_read] = '\0'; // Null-terminate the buffer
+        input = ft_strjoin_free(input, buffer); // Use libft's ft_strjoin_free
+        total_size += bytes_read;
+        if (ft_strchr(buffer, '\n')) { // Stop reading if newline is found
+            break;
+        }
+    }
+
+    if (input && ft_strlen(input) > 0) {
+        input[ft_strlen(input) - 1] = '\0'; // Remove the newline character
+    }
+    return input;
+}
+
 // Function to add a command to the history
 void add_to_history(t_history **history, char *command) {
-    t_history *new_node = malloc(sizeof(t_history));
+    t_history *new_node = (t_history *)ft_calloc(1, sizeof(t_history));
     if (!new_node) {
-        perror("malloc");
+        perror("ft_calloc");
         exit(EXIT_FAILURE);
     }
-    new_node->command = strdup(command);
+    new_node->command = ft_strdup(command); // Use ft_strdup from libft
     if (!new_node->command) {
-        perror("strdup");
-        free(new_node);
+        perror("ft_strdup");
+        ft_free(new_node);
         exit(EXIT_FAILURE);
     }
-    new_node->next = *history;
-    *history = new_node;
+    new_node->next = NULL;
+
+    if (*history == NULL) {
+        *history = new_node; // If the list is empty, this is the first node
+    } else {
+        t_history *current = *history;
+        while (current->next != NULL) {
+            current = current->next; // Traverse to the end of the list
+        }
+        current->next = new_node; // Append the new node
+    }
 }
 
 // Function to print the command history
 void print_history(t_history *history) {
     t_history *current = history;
+    int index = 1;
     while (current) {
-        printf("%s\n", current->command);
+        ft_printf("%d: %s\n", index, current->command); // Use ft_printf from libft
         current = current->next;
+        index++;
     }
 }
 
@@ -32,8 +70,8 @@ void free_history(t_history *history) {
     while (history) {
         tmp = history;
         history = history->next;
-        free(tmp->command);
-        free(tmp);
+        ft_free(tmp->command); // Use ft_free from libft
+        ft_free(tmp); // Use ft_free from libft
     }
 }
 
@@ -55,26 +93,26 @@ void execute_command(char *command) {
 }
 
 int main() {
-    char input[MAX_INPUT_SIZE];
+    char *input;
     t_history *history = NULL;
 
     while (1) {
-        printf("minishell> ");
-        if (!fgets(input, MAX_INPUT_SIZE, stdin)) {
+        ft_printf("minishell> "); // Use ft_printf from libft
+        input = read_input(); // Use custom input reader
+        if (!input) {
             break;
         }
 
-        // Remove newline character
-        input[strcspn(input, "\n")] = 0;
-
-        if (strcmp(input, "history") == 0) {
+        if (ft_strcmp(input, "history") == 0) { // Use ft_strcmp from libft
             print_history(history);
-        } else if (strcmp(input, "exit") == 0) {
+        } else if (ft_strcmp(input, "exit") == 0) { // Use ft_strcmp from libft
+            ft_free(input);
             break;
-        } else {
+        } else if (ft_strlen(input) > 0) { // Use ft_strlen from libft
             add_to_history(&history, input);
             execute_command(input);
         }
+        ft_free(input); // Free the input after processing
     }
 
     free_history(history);

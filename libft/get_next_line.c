@@ -6,7 +6,7 @@
 /*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 08:32:48 by hang              #+#    #+#             */
-/*   Updated: 2024/09/02 17:40:25 by hang             ###   ########.fr       */
+/*   Updated: 2025/02/18 02:42:10 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,35 +40,6 @@ static char	*ft_strchr_gnl(char *s, int c)
 		i++;
 	}
 	return (0);
-}
-
-static char	*ft_strjoin_free(char *fd_str, char *buff)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	i = -1;
-	j = 0;
-	if (!fd_str)
-	{
-		fd_str = (char *)malloc(1 * sizeof(char));
-		fd_str[0] = '\0';
-	}
-	if (!fd_str || !buff)
-		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen_gnl(fd_str) + ft_strlen_gnl(buff))
-				+ 1));
-	if (str == NULL)
-		return (NULL);
-	if (fd_str)
-		while (fd_str[++i])
-			str[i] = fd_str[i];
-	while (buff[j])
-		str[i++] = buff[j++];
-	str[i] = '\0';
-	free(fd_str);
-	return (str);
 }
 
 char	*readnjoin(int fd, char *fd_str)

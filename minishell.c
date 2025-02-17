@@ -1,29 +1,18 @@
 #include "minishell.h"
 
 // Custom function to read input using read()
-char *read_input(void) 
-{
+char *read_input(void) {
     char buffer[READ_BUFFER_SIZE];
     char *input = NULL;
     ssize_t bytes_read;
-    size_t total_size = 0;
 
-    while ((bytes_read = read(STDIN_FILENO, buffer, READ_BUFFER_SIZE - 1)))
-    {
-        if (bytes_read < 0) 
-        {
-            perror("read");
-            free(input);
-            return NULL;
-        }
+    while ((bytes_read = read(STDIN_FILENO, buffer, READ_BUFFER_SIZE - 1)) > 0) {
         buffer[bytes_read] = '\0'; // Null-terminate the buffer
-        input = ft_strjoin_free(input, buffer); // Use libft's ft_strjoin_free
-        total_size += bytes_read;
-        if (ft_strchr(buffer, '\n')) 
-        { // Stop reading if newline is found
+        input = ft_strjoin_free(input, buffer); // Concatenate and free old input
+
+        if (ft_strchr(buffer, '\n')) { // Stop reading if newline is found
             break;
         }
-    
     }
 
     if (input && ft_strlen(input) > 0) {
@@ -109,9 +98,9 @@ int main() {
             break;
         }
 
-        if (ft_strcmp(input, "history") == 0) { // Use ft_strcmp from libft
+        if (ft_strncmp(input, "history", 7) == 0) { // Use ft_strncmp from libft
             print_history(history);
-        } else if (ft_strcmp(input, "exit") == 0) { // Use ft_strcmp from libft
+        } else if (ft_strncmp(input, "exit", 4) == 0) { // Use ft_strcmp from libft
             free(input);
             break;
         } else if (ft_strlen(input) > 0) { // Use ft_strlen from libft

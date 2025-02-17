@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 17:37:06 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/19 17:42:31 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/06 17:00:04 by hang              #+#    #+#             */
+/*   Updated: 2023/11/10 23:35:50 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
 	unsigned int	i;
 
-	if (!s || !f)
+	i = 0;
+	if (s == NULL)
 		return ;
-	i = -1;
-	while (s[++i])
+	while (s[i])
+	{
 		f(i, &s[i]);
+		i++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 17:37:49 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/21 23:56:48 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/10/28 17:42:53 by hang              #+#    #+#             */
+/*   Updated: 2024/07/24 17:30:37 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
-	{
-		if (*s == (unsigned char)c)
-			return ((char *)s);
-		s++;
-	}
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
 	if (c == '\0')
-		return ((char *)s);
+		return ((char *)&s[ft_strlen(s)]);
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
 	return (0);
 }

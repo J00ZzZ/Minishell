@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 21:29:11 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/20 00:25:28 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/10/28 21:58:22 by hang              #+#    #+#             */
+/*   Updated: 2023/11/10 22:45:49 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *s1, const void *s2, size_t n)
 {
-	size_t	n;
+	size_t	len;
 
-	if (dst == NULL && src == NULL)
-		return (NULL);
-	n = 0;
-	if (src < dst)
+	if (s1 == NULL && s2 == NULL)
+		return (0);
+	len = 0;
+	if (s2 < s1)
 	{
-		n = len;
-		while (n > 0)
+		len = n;
+		while (len > 0)
 		{
-			n--;
-			((unsigned char *)dst)[n] = ((unsigned char *)src)[n];
+			len--;
+			((char *)s1)[len] = ((char *)s2)[len];
 		}
 	}
 	else
 	{
-		n = 0;
-		while (n < len)
+		len = 0;
+		while (len < n)
 		{
-			((unsigned char *)dst)[n] = ((unsigned char *)src)[n];
-			n++;
+			((char *)s1)[len] = ((char *)s2)[len];
+			len++;
 		}
 	}
-	return (dst);
+	return (s1);
 }

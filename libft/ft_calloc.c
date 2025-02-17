@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 07:18:19 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/18 22:38:45 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/10/28 20:55:24 by hang              #+#    #+#             */
+/*   Updated: 2023/11/17 15:05:42 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*ji;
+	size_t	bytes;
+	void	*p;
 
-	if (size && UINT_MAX / size < count)
+	if (size > 0 && count > UINT_MAX / size)
+		return (0);
+	bytes = count * size;
+	p = malloc(bytes);
+	if (!p)
 		return (NULL);
-	ji = malloc(count * size);
-	if (!ji)
-		return (NULL);
-	ft_bzero(ji, count * size);
-	return (ji);
+	else
+		ft_bzero(p, bytes);
+	return (p);
 }
+
+// check if arguments is not zero
+// check if count * size is not too large for malloc

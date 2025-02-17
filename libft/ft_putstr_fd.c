@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 22:45:22 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/20 01:29:18 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/10/25 20:05:00 by hang              #+#    #+#             */
+/*   Updated: 2023/12/04 16:56:42 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *str, int fd)
 {
-	if (!s)
+	if (str == NULL)
 		return ;
-	write(fd, s, ft_strlen(s));
+	write(fd, &(*str), ft_strlen(str));
 }

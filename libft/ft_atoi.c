@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 16:41:20 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/08 10:59:12 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/10/24 01:43:35 by hang              #+#    #+#             */
+/*   Updated: 2023/10/25 20:29:31 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,25 @@
 int	ft_atoi(const char *str)
 {
 	int	i;
-	int	neg;
-	int	res;
+	int	result;
+	int	sign;
 
+	result = 0;
+	sign = 1;
 	i = 0;
-	neg = 1;
-	res = 0;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			neg *= -1;
+			sign *= -1;
 		i++;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		res = (str[i] - '0') + (res * 10);
+		result *= 10;
+		result += str[i] - 48;
 		i++;
 	}
-	return (res * neg);
+	return (result * sign);
 }

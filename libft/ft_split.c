@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 18:14:11 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/21 17:33:56 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/01 20:33:08 by hang              #+#    #+#             */
+/*   Updated: 2023/11/10 22:30:48 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*fill_letters(char const *str, char set)
 	i = 0;
 	while (!is_sep(str[i], set) && str[i])
 		i++;
-	newstr = (char *)malloc((i + 1) * sizeof(char));
+	newstr = malloc(sizeof(char) * (i + 1));
 	if (!newstr)
 		return (0);
 	i = 0;
@@ -65,11 +65,11 @@ char	**ft_split(char const *s, char set)
 	int		count;
 	int		i;
 
+	i = 0;
 	if (!s)
 		return (NULL);
-	i = 0;
 	count = word_count(s, set);
-	split_str = (char **)malloc((count + 1) * sizeof(char *));
+	split_str = malloc(sizeof(char *) * (count + 1));
 	if (!split_str)
 		return (0);
 	while (*s)

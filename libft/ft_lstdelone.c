@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 17:02:27 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/22 18:15:31 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/19 18:04:18 by hang              #+#    #+#             */
+/*   Updated: 2023/11/19 18:04:45 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (!del || !lst)
+	if (lst == NULL || del == NULL)
 		return ;
-	del(lst->content);
+	(*del)(lst->content);
 	free(lst);
 }

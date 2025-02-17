@@ -3,66 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:11:14 by liyu-her          #+#    #+#             */
-/*   Updated: 2024/06/04 15:34:05 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/24 16:47:37 by hang              #+#    #+#             */
+/*   Updated: 2024/07/24 13:45:19 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_args(va_list args, const char format)
+static void	datatype(va_list *args, char input, int *length)
 {
-	if (format == 'c')
-		return (my_putchar(va_arg(args, int)));
-	else if (format == '%')
-		return (my_putchar('%'));
-	else if (format == 's')
-		return (my_string(va_arg(args, char *)));
-	else if (format == 'i' || format == 'd')
-		return (my_putnbr(va_arg(args, int)));
-	else if (format == 'u')
-		return (my_unputnbr(va_arg(args, unsigned int)));
-	else if (format == 'x' || format == 'X')
-		return (my_hexa(va_arg(args, unsigned int), format));
-	else if (format == 'p')
-		return (my_pointer(va_arg(args, void *)));
-	else
-		return (0);
+	if (input == 'c')
+		printfputchar(va_arg(*args, int), length);
+	else if (input == 's')
+		printfstring(va_arg(*args, char *), length);
+	else if (input == 'p')
+		printfpointer(va_arg(*args, uintptr_t), length);
+	else if (input == 'x')
+		printfhexadecimal(va_arg(*args, unsigned int), length, 'x');
+	else if (input == 'X')
+		printfhexadecimal(va_arg(*args, unsigned int), length, 'X');
+	else if (input == '%')
+		printfputchar('%', length);
+	else if (input == 'u')
+		printfinteger(va_arg(*args, unsigned int), length);
+	else if (input == 'd' || input == 'i')
+		printfinteger(va_arg(*args, int), length);
 }
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(const char *str, ...)
 {
+	int		i;
+	int		length;
 	va_list	args;
-	size_t	i;
-	int		len;
 
-	if (!format)
-		return (-1);
+	length = 0;
 	i = 0;
-	len = 0;
-	va_start(args, format);
-	while (format[i])
+	va_start(args, str);
+	while (str[i])
 	{
-		if (format[i] == '%')
-		{
-			len += ft_args(args, format[i + 1]);
-			i++;
-		}
+		if (str[i] == '%')
+			datatype(&args, str[++i], &length);
 		else
-			len += my_putchar(format[i]);
+			printfputchar(str[i], &length);
 		i++;
 	}
 	va_end(args);
-	return (len);
+	return (length);
 }
-
-// int	main(void)
-// {
-// 	unsigned long i;
-
-// 	i = 42949672434;
-// 	printf("%p\n", &i);
-// 	ft_printf("%p\n", &i);
-// }

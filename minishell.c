@@ -1,24 +1,29 @@
 #include "minishell.h"
 
 // Custom function to read input using read()
-char *read_input(void) {
+char *read_input(void) 
+{
     char buffer[READ_BUFFER_SIZE];
     char *input = NULL;
     ssize_t bytes_read;
     size_t total_size = 0;
 
-    while ((bytes_read = read(STDIN_FILENO, buffer, READ_BUFFER_SIZE - 1)) {
-        if (bytes_read < 0) {
+    while ((bytes_read = read(STDIN_FILENO, buffer, READ_BUFFER_SIZE - 1)))
+    {
+        if (bytes_read < 0) 
+        {
             perror("read");
-            ft_free(input);
+            free(input);
             return NULL;
         }
         buffer[bytes_read] = '\0'; // Null-terminate the buffer
         input = ft_strjoin_free(input, buffer); // Use libft's ft_strjoin_free
         total_size += bytes_read;
-        if (ft_strchr(buffer, '\n')) { // Stop reading if newline is found
+        if (ft_strchr(buffer, '\n')) 
+        { // Stop reading if newline is found
             break;
         }
+    
     }
 
     if (input && ft_strlen(input) > 0) {
@@ -26,6 +31,7 @@ char *read_input(void) {
     }
     return input;
 }
+
 
 // Function to add a command to the history
 void add_to_history(t_history **history, char *command) {
@@ -37,7 +43,7 @@ void add_to_history(t_history **history, char *command) {
     new_node->command = ft_strdup(command); // Use ft_strdup from libft
     if (!new_node->command) {
         perror("ft_strdup");
-        ft_free(new_node);
+        free(new_node);
         exit(EXIT_FAILURE);
     }
     new_node->next = NULL;
@@ -70,8 +76,8 @@ void free_history(t_history *history) {
     while (history) {
         tmp = history;
         history = history->next;
-        ft_free(tmp->command); // Use ft_free from libft
-        ft_free(tmp); // Use ft_free from libft
+        free(tmp->command); // Use ft_free from libft
+        free(tmp); // Use ft_free from libft
     }
 }
 
@@ -106,13 +112,13 @@ int main() {
         if (ft_strcmp(input, "history") == 0) { // Use ft_strcmp from libft
             print_history(history);
         } else if (ft_strcmp(input, "exit") == 0) { // Use ft_strcmp from libft
-            ft_free(input);
+            free(input);
             break;
         } else if (ft_strlen(input) > 0) { // Use ft_strlen from libft
             add_to_history(&history, input);
             execute_command(input);
         }
-        ft_free(input); // Free the input after processing
+        free(input); // Free the input after processing
     }
 
     free_history(history);

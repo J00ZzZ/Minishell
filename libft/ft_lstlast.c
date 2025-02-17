@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 16:41:42 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/21 19:02:19 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/18 22:30:59 by hang              #+#    #+#             */
+/*   Updated: 2023/11/18 22:43:56 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ t_list	*ft_lstlast(t_list *lst)
 {
 	while (lst)
 	{
-		if (!(lst->next))
+		if (lst->next == NULL)
 			return (lst);
-		else
-			lst = lst->next;
+		lst = lst->next;
 	}
-	return (lst);
+	return (NULL);
 }

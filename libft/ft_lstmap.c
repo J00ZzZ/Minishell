@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 19:31:26 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/22 00:05:43 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/19 17:54:02 by hang              #+#    #+#             */
+/*   Updated: 2023/11/19 18:49:41 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,20 @@
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*begin;
-	t_list	*next;
+	t_list	*head;
+	t_list	*new;
 
-	if (!lst || !del || !f)
-		return (NULL);
-	begin = ft_lstnew(f(lst->content));
-	if (!begin)
-		return (NULL);
-	lst = lst->next;
+	head = NULL;
 	while (lst)
 	{
-		next = ft_lstnew(f(lst->content));
-		if (!next)
+		new = ft_lstnew((*f)(lst->content));
+		if (!new)
 		{
-			ft_lstclear(&begin, del);
+			ft_lstclear(&head, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&begin, next);
+		ft_lstadd_back(&head, new);
 		lst = lst->next;
 	}
-	return (begin);
+	return (head);
 }

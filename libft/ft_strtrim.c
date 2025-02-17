@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: liyu-her <liyu-her@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 01:58:10 by liyu-her          #+#    #+#             */
-/*   Updated: 2023/11/19 16:48:09 by liyu-her         ###   ########.fr       */
+/*   Created: 2023/11/01 18:50:12 by hang              #+#    #+#             */
+/*   Updated: 2023/11/10 23:26:22 by hang             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		start;
-	int		end;
+	size_t	i;
+	size_t	j;
 	char	*str;
 
-	if (!s1 || !set)
-		return (NULL);
-	start = 0;
-	end = ft_strlen(s1) - 1;
-	while (ft_strchr(set, s1[start]) && start <= end)
-		start++;
-	if (start > end)
-		return (ft_strdup(s1 + end + 1));
-	while (ft_strchr(set, s1[end]) && end >= 0)
-		end--;
-	str = (char *)malloc(end - start + 2);
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, &s1[start], end - start + 2);
+	if (s1 == NULL || set == NULL)
+		return (0);
+	j = ft_strlen(s1);
+	i = 0;
+	str = 0;
+	if (s1 != 0 && set != 0)
+	{
+		while (s1[i] && ft_strchr(set, s1[i]))
+			i++;
+		while (s1[j - 1] && ft_strchr(set, s1[j - 1]) && j > i)
+			j--;
+		str = malloc(sizeof(char) * (j - i + 1));
+		if (str)
+			ft_strlcpy(str, &s1[i], j - i + 1);
+	}
 	return (str);
 }

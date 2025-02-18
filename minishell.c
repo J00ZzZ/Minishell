@@ -21,6 +21,8 @@ char *read_input(void)
     return input;
 }
 
+
+
 // Function to add a command to the history
 void add_to_history(t_history **history, char *command) 
 {

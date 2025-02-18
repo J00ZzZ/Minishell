@@ -6,7 +6,12 @@ CFLAGS = -Wall -Wextra -Werror
 TARGET = minishell
 
 # Source files
-SRCS = minishell.c
+SRCS = main.c \
+	   parsing/read_input.c \
+	   parsing/add_to_history.c \
+	   parsing/print_history.c \
+	   parsing/free_history.c \
+	   execution/execute_command.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -16,7 +21,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Include directories
-INCLUDES = -I$(LIBFT_DIR)
+INCLUDES = -I$(LIBFT_DIR) -Iparsing -Iexecution
 
 # Default target
 all: $(TARGET)

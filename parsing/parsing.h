@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include "../libft/libft.h"
 
 # define READ_BUFFER_SIZE 1024
 

@@ -112,31 +112,32 @@ void	execute_command(char *command)
 		perror("fork");
 }
 
-int main() 
+int	main(void)
 {
-    char *input;
-    t_history *history = NULL;
+	char		*input;
+	t_history	*history;
 
-    while (1) 
-    {
-        ft_printf("minishell> "); // Use ft_printf from libft
-        input = read_input(); // Use custom input reader
-        if (!input)
-            break;
-        if (ft_strncmp(input, "history", 7) == 0) // Use ft_strncmp from libft
-            print_history(history);
-        else if (ft_strncmp(input, "exit", 4) == 0) // Use ft_strcmp from libft
-        {
-            free(input);
-            break;
-        } 
-        else if (ft_strlen(input) > 0) // Use ft_strlen from libft
-        {
-            add_to_history(&history, input);
-            execute_command(input);
-        }
-        free(input); // Free the input after processing
-    }
-    free_history(history);
-    return 0;
+	history = NULL;
+	while (1)
+	{
+		ft_printf("minishell> "); // Use ft_printf from libft
+		input = read_input();     // Use custom input reader
+		if (!input)
+			break ;
+		if (ft_strncmp(input, "history", 7) == 0) // Use ft_strncmp from libft
+			print_history(history);
+		else if (ft_strncmp(input, "exit", 4) == 0) // Use ft_strcmp from libft
+		{
+			free(input);
+			break ;
+		}
+		else if (ft_strlen(input) > 0) // Use ft_strlen from libft
+		{
+			add_to_history(&history, input);
+			execute_command(input);
+		}
+		free(input); // Free the input after processing
+	}
+	free_history(history);
+	return (0);
 }

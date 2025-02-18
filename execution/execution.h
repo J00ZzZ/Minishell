@@ -8,6 +8,6 @@
 # include "../libft/libft.h"
 
 
-void	execute_command(char *command);
+void	execute_command(char *command, char** envp);
 
 #endif

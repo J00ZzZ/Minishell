@@ -1,8 +1,10 @@
 #include "minishell.h"
-#include "libft.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
+	(void)argv;
+	(void)argc;
+
 	char		*input;
 	t_history	*history;
 
@@ -23,7 +25,7 @@ int	main(void)
 		else if (ft_strlen(input) > 0)
 		{
 			add_to_history(&history, input);
-			execute_command(input);
+			execute_command(input, envp);
 		}
 		free(input);
 	}

@@ -11,8 +11,7 @@ int	main(int argc, char **argv, char **envp)
 	history = NULL;
 	while (1)
 	{
-		ft_printf("minishell> ");
-		input = read_input();
+		input = readline("minishell> ");
 		if (!input)
 			break ;
 		if (ft_strncmp(input, "history", 7) == 0)
@@ -24,11 +23,13 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else if (ft_strlen(input) > 0)
 		{
+			add_history(input);
 			add_to_history(&history, input);
 			execute_command(input, envp);
 		}
 		free(input);
 	}
+	write_history(".minishell_history");
 	free_history(history);
 	return (0);
 }

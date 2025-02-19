@@ -21,14 +21,18 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Include directories
-INCLUDES = -I$(LIBFT_DIR) -Iparsing -Iexecution
+INCLUDES = -I$(LIBFT_DIR) -Iparsing -Iexecution -I/opt/homebrew/opt/readline/include
+
+# Linker flags for readline
+LDFLAGS = -L/opt/homebrew/opt/readline/lib
+LDLIBS = -lreadline -lft
 
 # Default target
 all: $(TARGET)
 
-# Link the object files and libft to create the executable
+# Link the object files, libft, and readline to create the executable
 $(TARGET): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -L$(LIBFT_DIR) $(LDFLAGS) $(LDLIBS)
 
 # Compile source files into object files
 %.o: %.c

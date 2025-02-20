@@ -7,10 +7,6 @@ TARGET = minishell
 
 # Source files
 SRCS = main.c \
-	   parsing/read_input.c \
-	   parsing/add_to_history.c \
-	   parsing/print_history.c \
-	   parsing/free_history.c \
 	   execution/execute_command.c\
 	   execution/execute_builtin.c\
 	   buildin/builtin_echo.c \

@@ -9,5 +9,6 @@
 
 
 void	execute_command(char *command, char** envp);
+int     execute_builtin(char **args, char **envp);
 
 #endif

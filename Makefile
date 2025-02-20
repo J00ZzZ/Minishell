@@ -11,7 +11,15 @@ SRCS = main.c \
 	   parsing/add_to_history.c \
 	   parsing/print_history.c \
 	   parsing/free_history.c \
-	   execution/execute_command.c
+	   execution/execute_command.c\
+	   execution/execute_builtin.c\
+	   buildin/builtin_echo.c \
+	#    buildin/builtin_cd.c \
+	#    buildin/builtin_pwd.c \
+	#    buildin/builtin_export.c \
+	#    buildin/builtin_unset.c \
+	#    buildin/builtin_env.c \
+	#    buildin/builtin_exit.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)
@@ -20,7 +28,7 @@ OBJS = $(SRCS:.c=.o)
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# Include directories
+# Include directoriese
 INCLUDES = -I$(LIBFT_DIR) -Iparsing -Iexecution -I/opt/homebrew/opt/readline/include
 
 # Linker flags for readline

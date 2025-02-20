@@ -8,9 +8,6 @@
 # include <errno.h>
 # include <limits.h>
 
-
-extern char **environ;
-
 int builtin_echo(char **args);
 int builtin_cd(char **args);
 int builtin_pwd(char **args);

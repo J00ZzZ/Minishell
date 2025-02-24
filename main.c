@@ -2,10 +2,10 @@
 
 int	main(int argc, char **argv, char **envp)
 {
+	char	*input;
+
 	(void)argv;
 	(void)argc;
-
-	char		*input;
 	while (1)
 	{
 		input = readline("minishell> ");

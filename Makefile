@@ -8,8 +8,8 @@ TARGET = minishell
 # Source files
 SRCS = main.c \
 	   execution/execute_command.c\
-	   execution/execute_builtin.c\
-	   buildin/builtin_echo.c \
+	#  execution/execute_builtin.c\
+	#   buildin/builtin_echo.c \
 	#    buildin/builtin_cd.c \
 	#    buildin/builtin_pwd.c \
 	#    buildin/builtin_export.c \

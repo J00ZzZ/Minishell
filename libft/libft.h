@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hang <hang@student.42kl.edu.my>            +#+  +:+       +#+        */
+/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 02:32:56 by hang              #+#    #+#             */
-/*   Updated: 2025/02/18 01:22:21 by hang             ###   ########.fr       */
+/*   Updated: 2025/02/24 07:44:51 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char 				*ft_strjoin_free(char *s1, char *s2);
 void				*ft_calloc(size_t count, size_t size);
+char				*ft_strtok(char *str, const char *delim);
 void				*ft_memset(void *buffer, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 char				*ft_strjoin(char const *s1, char const *s2);

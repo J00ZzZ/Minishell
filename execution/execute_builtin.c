@@ -1,7 +1,10 @@
 #include "execution.h"
+#include "../builtin/builtin.h"
+
 
 int execute_builtin(char **args, char **envp)
 {
+    (void)envp;
     if (ft_strncmp(args[0], "echo", 4) == 0)
         return builtin_echo(args);
     // else if (ft_strcmp(args[0], "cd") == 0)

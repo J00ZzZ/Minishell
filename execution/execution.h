@@ -7,8 +7,8 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 
-
-void	execute_command(char *command, char** envp);
+void    execute_command(char **args, char **envp);
 int     execute_builtin(char **args, char **envp);
+char    **parse_input(char *input);
 
 #endif

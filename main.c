@@ -1,12 +1,51 @@
 #include "minishell.h" // Include your header file
 
+static void	handle_input(char *input, char **envp)
+{
+	t_ast	*ast;
+
+	ast = parse_input(input); // Parse input into AST
+	if (!ast)
+	{
+		free(input);
+		return ;
+	}
+	execute_ast(ast, envp); // Execute the AST
+	free_ast(ast);          // Free the AST
+}
+
 int	main(int argc, char **argv, char **envp)
+{
+	char	*input;
+
+	(void)argv;
+	(void)argc;
+	while (1)
+	{
+		input = readline("minishell> ");
+		if (!input)
+			break ;
+		if (ft_strlen(input) == 0)
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
+		handle_input(input, envp);
+		free(input);
+	}
+	write_history(".minishell_history");
+	return (0);
+}
+
+/* int	main(int argc, char **argv, char **envp)
 {
 	(void)argv; // Unused parameters
 	(void)argc;
 
 	char *input;
 	char **args;
+	t_ast *ast;
 
 	while (1)
 	{
@@ -40,5 +79,4 @@ int	main(int argc, char **argv, char **envp)
 	// Save history and exit
 	write_history(".minishell_history");
 	return (0);
-}
- 
+} */

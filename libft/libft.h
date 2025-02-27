@@ -6,7 +6,7 @@
 /*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 02:32:56 by hang              #+#    #+#             */
-/*   Updated: 2025/02/24 07:44:51 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:35:58 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int					ft_strlen(const char *str);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 
+void				ft_arrfree(char **arr);
 void				ft_bzero(void *s, size_t n);
 void				ft_putnbr_fd(int n, int fd);
 void				ft_putchar_fd(int c, int fd);
@@ -78,7 +79,7 @@ char				*ft_itoa(int n);
 char				*ft_strdup(const char *src);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
-char 				*ft_strjoin_free(char *s1, char *s2);
+char				*ft_strjoin_free(char *s1, char *s2);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strtok(char *str, const char *delim);
 void				*ft_memset(void *buffer, int c, size_t n);
@@ -92,8 +93,8 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 
+char				**ft_arrdup(char **arr);
 char				**ft_split(char const *s, char set);
-
 
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);

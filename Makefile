@@ -10,13 +10,14 @@ SRCS = main.c \
 	   execution/parse_input.c\
 	   execution/execute_command.c\
 	   execution/execute_builtin.c\
+	   execution/is_builtin.c\
 	   builtin/builtin_echo.c \
-	#    buildin/builtin_cd.c \
-	#    buildin/builtin_pwd.c \
-	#    buildin/builtin_export.c \
-	#    buildin/builtin_unset.c \
-	#    buildin/builtin_env.c \
-	#    buildin/builtin_exit.c \
+	   builtin/builtin_cd.c \
+	#    builtin/builtin_pwd.c \
+	#    builtin/builtin_export.c \
+	#    builtin/builtin_unset.c \
+	#    builtin/builtin_env.c \
+	#    builtin/builtin_exit.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)

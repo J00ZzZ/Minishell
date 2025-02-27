@@ -10,7 +10,7 @@
 # include "../libft/libft.h"
 
 int builtin_echo(char **args);
-int builtin_cd(char **args);
+char **builtin_cd(char **args, char **envp);
 int builtin_pwd(char **args);
 int builtin_export(char **args);
 int builtin_unset(char **args);

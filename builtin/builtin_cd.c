@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/03 07:22:48 by harleyng          #+#    #+#             */
+/*   Updated: 2025/03/03 07:27:27 by harleyng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin.h"
 
 static char	**update_env_var(char **envp, const char *key, const char *value)
@@ -60,11 +72,7 @@ static char	*get_env_value(char **envp, const char *key)
 	return (NULL);
 }
 
-/*
-** Built-in: cd
-** Changes the current working directory.
-** Returns the updated envp array.
-*/
+
 char	**builtin_cd(char **args, char **envp)
 {
 	char	*path;

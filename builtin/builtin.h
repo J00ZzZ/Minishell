@@ -11,10 +11,10 @@
 
 char	**builtin_echo(char **args, char **envp);
 char	**builtin_cd(char **args, char **envp);
-int		builtin_pwd(char **args);
-int		builtin_export(char **args);
-int		builtin_unset(char **args);
-int		builtin_env(char **args);
-int		builtin_exit(char **args);
+char	**builtin_pwd(char **args, char **envp);
+char	**builtin_exit(char **args, char **envp);
+char	**builtin_env(char **args, char **envp);
+char	**builtin_export(char **args, char **envp);
+char	**builtin_unset(char **args, char **envp);
 
 #endif

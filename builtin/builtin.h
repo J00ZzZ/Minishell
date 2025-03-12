@@ -16,5 +16,6 @@ char	**builtin_exit(char **args, char **envp);
 char	**builtin_env(char **args, char **envp);
 char	**builtin_export(char **args, char **envp);
 char	**builtin_unset(char **args, char **envp);
+char	**update_env_var(char **envp, const char *key, const char *value);
 
 #endif

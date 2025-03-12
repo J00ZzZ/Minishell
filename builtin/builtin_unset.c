@@ -6,7 +6,7 @@
 /*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:31:46 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/03 08:33:14 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:27:57 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void remove_env_var(const char *name, char ***envp)
         env++;
     }
 }
+
 
 char **builtin_unset(char **args, char **envp)
 {

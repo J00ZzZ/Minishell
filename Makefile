@@ -13,6 +13,7 @@ SRCS = main.c \
 	   execution/is_builtin.c\
 	   builtin/builtin_echo.c \
 	   builtin/builtin_cd.c \
+	   builtin/builtin_cd_utils.c \
 	   builtin/builtin_pwd.c \
 	   builtin/builtin_exit.c \
 	   builtin/builtin_env.c \

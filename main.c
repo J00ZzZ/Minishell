@@ -93,5 +93,3 @@ int main(int argc, char **argv, char **envp)
     ft_arrfree(envp_copy); // Free the environment copy
     return (0);
 }
-
-awd

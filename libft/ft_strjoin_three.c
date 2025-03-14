@@ -6,11 +6,11 @@
 /*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:02:30 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/14 17:03:17 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:08:17 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" // Include your libft header
+#include "libft.h"
 
 char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {

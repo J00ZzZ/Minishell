@@ -1,21 +1,21 @@
 #include "execution.h"
 #include "../builtin/builtin.h"
 
-char	**execute_builtin(char **args, char **envp)
+char **execute_builtin(t_cmd *cmd, char **envp)
 {
-    if (ft_strncmp(args[0], "echo", 4) == 0)
-        return builtin_echo(args, envp);
-	else if (ft_strncmp(args[0], "cd", 3) == 0)
-		return (builtin_cd(args, envp));
-	else if (ft_strncmp(args[0], "pwd", 3) == 0)
-        return builtin_pwd(args, envp);
-	else if (ft_strncmp(args[0], "export", 6) == 0)
-		return builtin_export(args, envp);
-	else if (ft_strncmp(args[0], "unset", 5) == 0)
-		return builtin_unset(args, envp);
-	else if (ft_strncmp(args[0], "env", 4) == 0)
-		return builtin_env(args, envp);
-	else if (ft_strncmp(args[0], "exit", 5) == 0)
-		return builtin_exit(args, envp);
-	return (envp);
+    if (ft_strncmp(cmd->command, "echo", 4) == 0)
+        return builtin_echo(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "cd", 3) == 0)
+        return builtin_cd(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "pwd", 3) == 0)
+        return builtin_pwd(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "export", 6) == 0)
+        return builtin_export(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "unset", 5) == 0)
+        return builtin_unset(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "env", 4) == 0)
+        return builtin_env(cmd->args, envp);
+    else if (ft_strncmp(cmd->command, "exit", 5) == 0)
+        return builtin_exit(cmd->args, envp);
+    return (envp); // Return the environment if no built-in is matched
 }

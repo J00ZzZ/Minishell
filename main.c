@@ -1,62 +1,95 @@
 #include "minishell.h" // Include your header file
 
-int	main(int argc, char **argv, char **envp)
+static void	free_cmd_list(t_cmd *cmd_list)
 {
-	(void)argv; // Unused parameters
-	(void)argc;
+	t_cmd	*current;
+	t_cmd	*next;
 
-	char *input;
-	char **args;
-	char **envp_copy;
-
-	// Create a copy of envp to allow modifications
-	envp_copy = ft_arrdup(envp); // Assume ft_arrdup is implemented in libft
-	if (!envp_copy)
-		return (1); // Exit if memory allocation fails
-
-	while (1)
+	current = cmd_list;
+	while (current)
 	{
-		input = readline("minishell> ");
-		if (!input)
-			break ;                 // Exit on EOF (Ctrl+D)
-		if (ft_strlen(input) == 0) // Use ft_strlen from libft
-		{
-			free(input);
-			continue ;
-		}
-		add_history(input);        // Add input to history
-		args = parse_input(input); // Parse input into arguments
-		if (!args)
-		{
-			free(input);
-			continue ; // Skip if parsing fails
-		}
-
-		// Execute the command
-		if (is_builtin(args))
-		{
-			envp_copy = execute_builtin(args, envp_copy); // Update envp_copy
-			if (envp_copy == NULL)
-			{
-				ft_putstr_fd("minishell: memory allocation failed\n", 2);
-				free(input);
-				ft_arrfree(args); // Assuming you have a function to free args
-				break ;            // Exit if memory allocation fails
-			}
-		}
-		else
-		{
-			// If not a built-in, execute as external command
-			execute_command(args, envp_copy);
-		}
-
-		// Free allocated memory
-		free(input);
-		ft_arrfree(args); // Assuming you have a function to free args
+		next = current->next;
+		free(current->command);
+		ft_arrfree(current->args);
+		free(current->input_redirect);
+		free(current->output_redirect);
+		free(current);
+		current = next;
 	}
+}
 
-	// Save history and exit
-	rl_clear_history();    // Clear readline history
-	ft_arrfree(envp_copy); // Free the environment copy
-	return (0);
+#include "minishell.h" // Include your header file
+
+int main(int argc, char **argv, char **envp)
+{
+    (void)argv; // Unused parameters
+    (void)argc;
+
+    char *input;
+    t_cmd *cmd_list; // Linked list of commands
+    char **envp_copy;
+
+    // Create a copy of envp to allow modifications
+    envp_copy = ft_arrdup(envp); // Assume ft_arrdup is implemented in libft
+    if (!envp_copy)
+        return (1); // Exit if memory allocation fails
+
+    while (1)
+    {
+        // Display prompt and read input
+        input = readline("minishell> ");
+        if (!input)
+            break ; // Exit on EOF (Ctrl+D)
+
+        // Skip empty input
+        if (ft_strlen(input) == 0)
+        {
+            free(input);
+            continue ;
+        }
+
+        // Add input to history
+        add_history(input);
+
+        // Parse input into a linked list of commands
+        cmd_list = parse_input(input);
+        if (!cmd_list)
+        {
+            free(input);
+            continue ; // Skip if parsing fails
+        }
+
+        // Execute the command(s) in the linked list
+        t_cmd *current = cmd_list;
+        while (current)
+        {
+            if (is_builtin(current)) // Check if the command is a built-in
+            {
+                envp_copy = execute_builtin(current, envp_copy); // Execute built-in
+                if (envp_copy == NULL)
+                {
+                    ft_putstr_fd("minishell: memory allocation failed\n", 2);
+                    free(input);
+                    free_cmd_list(cmd_list); // Free the linked list
+                    ft_arrfree(envp_copy);    // Free the environment copy
+                    return (1);               // Exit if memory allocation fails
+                }
+            }
+            else
+            {
+                // If not a built-in, execute as external command
+                execute_external_command(current, envp_copy);
+            }
+            current = current->next; // Move to the next command in the pipeline
+        }
+
+        // Free allocated memory
+        free(input);
+        free_cmd_list(cmd_list); // Free the linked list
+    }
+
+    // Save history and exit
+    rl_clear_history();    // Clear readline history
+    ft_arrfree(envp_copy); // Free the environment copy
+    return (0);
 }

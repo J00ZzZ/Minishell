@@ -1,105 +1,62 @@
 #include "execution.h"
 
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "libft.h" // Include your libft header
-
-static char	*find_executable(char *cmd, char *path)
+static char	*get_path(char *cmd, char **envp)
 {
-	char	*dir;
+	char	**paths;
 	char	*full_path;
-	char	*path_copy;
+	int		i;
 
-	path_copy = ft_strdup(path); // Use ft_strdup from libft
-	if (!path_copy)
+	if (!cmd || !envp || ft_strchr(cmd, '/'))
+		return (access(cmd, X_OK) == 0 ? ft_strdup(cmd) : NULL);
+	paths = ft_split(getenv("PATH"), ':');
+	if (!paths)
 		return (NULL);
-	dir = ft_strtok(path_copy, ":"); // Use ft_strtok from libft
-	while (dir)
+	i = 0;
+	while (paths[i])
 	{
-		full_path = ft_strjoin(dir, "/");
-		if (!full_path)
-		{
-			free(path_copy);
-			return (NULL);
-		}
-		full_path = ft_strjoin(full_path, cmd);
-		if (!full_path)
-		{
-			free(path_copy);
-			return (NULL);
-		}
-		if (access(full_path, X_OK) == 0) // Check if executable exists
-		{
-			free(path_copy);
-			return (full_path);
-		}
-		free(full_path); // Free if not executable
-		dir = ft_strtok(NULL, ":");
+		full_path = ft_strjoin_three(paths[i++], "/", cmd);
+		if (access(full_path, X_OK) == 0)
+			return (ft_arrfree(paths), full_path);
+		free(full_path);
 	}
-	free(path_copy);
-	return (NULL); // Executable not found
+	return (ft_arrfree(paths), NULL);
 }
 
-static void	execute_child(char **args, char **envp)
+static void	handle_redirect(char *file, int flags, int std_fd)
 {
-	char	*path;
+	int	fd;
+
+	if (!file)
+		return ;
+	fd = open(file, flags, 0644);
+	if (fd == -1)
+	{
+		perror("minishell");
+		exit(EXIT_FAILURE);
+	}
+	dup2(fd, std_fd);
+	close(fd);
+}
+
+void	execute_external_command(t_cmd *cmd, char **envp)
+{
 	char	*full_path;
-
-	// If the command is an absolute path, skip PATH search
-	if (ft_strchr(args[0], '/')) // Use ft_strchr from libft
-	{
-		if (access(args[0], X_OK) == 0) // Check if executable exists
-		{
-			execve(args[0], args, envp); // Execute the command
-			perror("minishell"); // If execve fails
-			exit(1);
-		}
-		else
-		{
-			ft_printf("minishell: %s: command not found\n", args[0]); // Use ft_printf_fd from libft
-			exit(1);
-		}
-	}
-
-	// Search for PATH in envp
-	path = NULL;
-	while (*envp)
-	{
-		if (ft_strncmp(*envp, "PATH=", 5) == 0) // Use ft_strncmp from libft
-		{
-			path = *envp + 5; // Skip "PATH=" to get the actual path
-			break;
-		}
-		envp++;
-	}
-	if (!path) // PATH not found
-	{
-		ft_printf("minishell: PATH not set\n"); // Use ft_printf_fd from libft
-		exit(1);
-	}
-	full_path = find_executable(args[0], path); // Find executable in PATH
-	if (!full_path) // Executable not found
-	{
-		ft_printf("minishell: %s: command not found\n", args[0]); // Use ft_printf_fd from libft
-		exit(1);
-	}
-	execve(full_path, args, envp); // Execute the command
-	perror("minishell"); // If execve fails
-	free(full_path);
-	exit(1);
-}
-
-void	execute_command(char **args, char **envp)
-{
 	pid_t	pid;
 
-	pid = fork(); // Fork the process
-	if (pid == 0) // Child process
-		execute_child(args, envp);
-	else if (pid > 0) // Parent process
-		wait(NULL); // Wait for the child to finish
-	else // Fork failed
-		perror("minishell");
+	full_path = get_path(cmd->command, envp);
+	if (!full_path)
+		return (ft_putstr_fd("minishell: command not found\n", 2));
+	pid = fork();
+	if (pid == -1)
+		return (perror("minishell"), free(full_path));
+	if (pid == 0)
+	{
+		handle_redirect(cmd->input_redirect, O_RDONLY, STDIN_FILENO);
+		handle_redirect(cmd->output_redirect, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+		execve(full_path, cmd->args, envp);
+		perror("minishell"), free(full_path), exit(EXIT_FAILURE);
+	}
+	if (!cmd->is_background)
+		waitpid(pid, NULL, 0);
+	free(full_path);
 }

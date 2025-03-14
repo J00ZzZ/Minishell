@@ -3,9 +3,6 @@
 static void	free_cmd_list(t_cmd *cmd_list)
 {
 	t_cmd	*current;
-
-	
-	t_cmd	*current;
 	t_cmd	*next;
 
 	current = cmd_list;

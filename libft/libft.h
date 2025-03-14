@@ -6,7 +6,7 @@
 /*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 02:32:56 by hang              #+#    #+#             */
-/*   Updated: 2025/02/27 09:35:58 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/03/14 17:05:16 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void				*ft_memmove(void *s1, const void *s2, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_strtok_r(char *str, const char *delim, char **saveptr);
+char				*ft_strjoin_three(char const *s1, char const *s2,
+						char const *s3);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 

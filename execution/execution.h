@@ -1,14 +1,17 @@
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+# include "../libft/libft.h"
+# include "../minishell.h"
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
+# include <sys/fcntl.h>
 # include <sys/wait.h>
-# include "../libft/libft.h"
+# include <unistd.h>
 
-void    execute_command(char **args, char **envp);
-int     execute_builtin(char **args, char **envp);
-char    **parse_input(char *input);
+void	execute_external_command(t_cmd *cmd, char **envp);
+t_cmd	*parse_input(char *input);
+int		is_builtin(t_cmd *cmd);
+char	**execute_builtin(t_cmd *cmd, char **envp);
 
 #endif

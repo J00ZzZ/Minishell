@@ -1,95 +1,71 @@
-#include "minishell.h" // Include your header file
-
-static void	free_cmd_list(t_cmd *cmd_list)
-{
-	t_cmd	*current;
-	t_cmd	*next;
-
-	current = cmd_list;
-	while (current)
-	{
-		next = current->next;
-		free(current->command);
-		ft_arrfree(current->args);
-		free(current->input_redirect);
-		free(current->output_redirect);
-		free(current);
-		current = next;
-	}
-}
-
-#include "minishell.h" // Include your header file
+#include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
-    (void)argv; // Unused parameters
-    (void)argc;
+    (void)argc; // Unused parameters
+    (void)argv;
 
-    char *input;
-    t_cmd *cmd_list; // Linked list of commands
-    char **envp_copy;
+    // Hard-code the first command: ls -l
+    char *ls_args[] = {"ls", "-l", NULL};
+    t_cmd ls_cmd = {
+        .command = "ls",
+        .args = ls_args,
+        .input_redirect = NULL,
+        .output_redirect = NULL,
+        .is_background = 0,
+        .is_pipe = 1, // This command is followed by a pipe
+        .next = NULL
+    };
 
-    // Create a copy of envp to allow modifications
-    envp_copy = ft_arrdup(envp); // Assume ft_arrdup is implemented in libft
-    if (!envp_copy)
-        return (1); // Exit if memory allocation fails
+    // Hard-code the second command: grep .c
+    char *grep_args[] = {"grep", ".c", NULL};
+    t_cmd grep_cmd = {
+        .command = "grep",
+        .args = grep_args,
+        .input_redirect = NULL,
+        .output_redirect = NULL,
+        .is_background = 0,
+        .is_pipe = 1, // This command is followed by a pipe
+        .next = NULL
+    };
 
-    while (1)
-    {
-        // Display prompt and read input
-        input = readline("minishell> ");
-        if (!input)
-            break ; // Exit on EOF (Ctrl+D)
+    // Hard-code the third command: wc -l
+    char *wc_args[] = {"wc", "-l", NULL};
+    t_cmd wc_cmd = {
+        .command = "wc",
+        .args = wc_args,
+        .input_redirect = NULL,
+        .output_redirect = NULL,
+        .is_background = 0,
+        .is_pipe = 1, // This command is followed by a pipe
+        .next = NULL
+    };
 
-        // Skip empty input
-        if (ft_strlen(input) == 0)
-        {
-            free(input);
-            continue ;
-        }
+    // Hard-code the fourth command: sort -n
+    char *sort_args[] = {"sort", "-n", NULL};
+    t_cmd sort_cmd = {
+        .command = "sort",
+        .args = sort_args,
+        .input_redirect = NULL,
+        .output_redirect = NULL,
+        .is_background = 0,
+        .is_pipe = 0, // This is the last command in the pipeline
+        .next = NULL
+    };
 
-        // Add input to history
-        add_history(input);
+    // Link the commands together
+    ls_cmd.next = &grep_cmd;
+    grep_cmd.next = &wc_cmd;
+    wc_cmd.next = &sort_cmd;
 
-        // Parse input into a linked list of commands
-        cmd_list = parse_input(input);
-        if (!cmd_list)
-        {
-            free(input);
-            continue ; // Skip if parsing fails
-        }
+    // Execute the pipeline
+    execute_pipeline(&ls_cmd, &sort_cmd, envp);
 
-        // Execute the command(s) in the linked list
-        t_cmd *current = cmd_list;
-        while (current)
-        {
-            if (is_builtin(current)) // Check if the command is a built-in
-            {
-                envp_copy = execute_builtin(current, envp_copy); // Execute built-in
-                if (envp_copy == NULL)
-                {
-                    ft_putstr_fd("minishell: memory allocation failed\n", 2);
-                    free(input);
-                    free_cmd_list(cmd_list); // Free the linked list
-                    ft_arrfree(envp_copy);    // Free the environment copy
-                    return (1);               // Exit if memory allocation fails
-                }
-            }
-            else
-            {
-                // If not a built-in, execute as external command
-                execute_external_command(current, envp_copy);
-            }
-            current = current->next; // Move to the next command in the pipeline
-        }
+    // Free the command nodes (if dynamically allocated)
+    // free_cmd_node(&ls_cmd);    // Uncomment if using dynamic allocation
+    // free_cmd_node(&grep_cmd);  // Uncomment if using dynamic allocation
+    // free_cmd_node(&wc_cmd);    // Uncomment if using dynamic allocation
+    // free_cmd_node(&sort_cmd);  // Uncomment if using dynamic allocation
 
-        // Free allocated memory
-        free(input);
-        free_cmd_list(cmd_list); // Free the linked list
-    }
-
-    // Save history and exit
-    rl_clear_history();    // Clear readline history
-    ft_arrfree(envp_copy); // Free the environment copy
-    return (0);
+    return 0;
 }

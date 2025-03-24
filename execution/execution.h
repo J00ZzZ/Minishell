@@ -13,5 +13,7 @@ void	execute_external_command(t_cmd *cmd, char **envp);
 t_cmd	*parse_input(char *input);
 int		is_builtin(t_cmd *cmd);
 char	**execute_builtin(t_cmd *cmd, char **envp);
+void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp);
+
 
 #endif

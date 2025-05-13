@@ -6,7 +6,7 @@
 /*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 07:26:22 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/24 00:40:24 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:51:02 by harleyng         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp)
         perror("minishell: pipe");
         return;
     }
-
     pid1 = fork();
     if (pid1 == -1)
     {
@@ -42,7 +41,6 @@ void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp)
         close_pipe(pipefd);
         return;
     }
-
     if (pid1 == 0) // Child process for the first command
     {
         close(pipefd[0]); // Close the read end of the pipe
@@ -51,7 +49,6 @@ void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp)
         execute_external_command(cmd1, envp);
         exit(EXIT_SUCCESS); // Ensure the child process exits
     }
-
     pid2 = fork();
     if (pid2 == -1)
     {
@@ -60,7 +57,6 @@ void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp)
         waitpid(pid1, NULL, 0); // Wait for the first child process
         return;
     }
-
     if (pid2 == 0) // Child process for the second command
     {
         close(pipefd[1]); // Close the write end of the pipe
@@ -69,7 +65,6 @@ void execute_pipeline(t_cmd *cmd1, t_cmd *cmd2, char **envp)
         execute_external_command(cmd2, envp);
         exit(EXIT_SUCCESS); // Ensure the child process exits
     }
-
     // Parent process
     close_pipe(pipefd); // Close the pipe in the parent
     wait_for_children(pid1, pid2); // Wait for both child processes

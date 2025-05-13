@@ -7,16 +7,29 @@ TARGET = minishell
 
 # Source files
 SRCS = main.c \
-	#   execution/parse_input.c\
-	   execution/execute_command.c\
-	   execution/execute_builtin.c\
-	   builtin/builtin_echo.c \
-	#    buildin/builtin_cd.c \
-	#    buildin/builtin_pwd.c \
-	#    buildin/builtin_export.c \
-	#    buildin/builtin_unset.c \
-	#    buildin/builtin_env.c \
-	#    buildin/builtin_exit.c \
+	 	src/execution/parse_input.c\
+		src/execution/execute_command.c\
+		src/execution/execute_builtin.c\
+		src/execution/is_builtin.c\
+		src/builtin/builtin_echo.c \
+		src/builtin/builtin_cd.c \
+		src/builtin/builtin_cd_utils.c \
+		src/builtin/builtin_pwd.c \
+		src/builtin/builtin_exit.c \
+		src/builtin/builtin_env.c \
+		src/builtin/builtin_export.c \
+		src/builtin/builtin_unset.c \
+		src/parsing/env_signal.c \
+		src/parsing/env_cpy.c \
+		src/utils/utils1.c \
+		src/tokenization/token1.c \
+		src/tokenization/token2.c \
+		src/tokenization/tokenize.c \
+		src/tokenization/tokentype.c \
+		src/tokenization/ischar.c \
+		src/tokenization/free_token.c \
+		src/tokenization/ft_valid.c \
+		src/tokenization/heredoc.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)

@@ -1,82 +1,129 @@
-#include "minishell.h" // Include your header file
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/13 21:57:13 by liyu-her          #+#    #+#             */
+/*   Updated: 2025/05/13 22:06:04 by liyu-her         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void	handle_input(char *input, char **envp)
+#include "inc/minishell.h"
+
+void	print_tokens(t_token *head)
 {
-	t_ast	*ast;
-
-	ast = parse_input(input); // Parse input into AST
-	if (!ast)
+	while (head)
 	{
-		free(input);
-		return ;
+		printf("Char: %s, Type: %u\n", head->value, head->type);
+		head = head->next;
 	}
-	execute_ast(ast, envp); // Execute the AST
-	free_ast(ast);          // Free the AST
+}
+
+// void print_tokens(t_token *head)
+// {
+//     while (head)
+//     {
+//         printf("%s, %d\n", head->value, head->type);
+//         if (head->next)
+//             printf("\n");
+//         head = head->next;
+//     }
+//     printf("\n");
+// }
+
+int	minishell_input(t_data *shelldata)
+{
+	shelldata->input = readline("minishell> ");
+	if (!shelldata->input)
+		return (-1);
+	add_history(shelldata->input);
+	if (g_sig == SIGINT || ft_strlen(shelldata->input) == 0)
+	{
+		if (ft_strlen(shelldata->input) == 0)
+			// exit_stats(0, shelldata->var_lst);
+			free(shelldata->input);
+		return (0);
+	}
+	shelldata->token_root = ft_tokenization(shelldata->input, NULL);
+	// dollar_expansion(shelldata->token_root);
+	return (0);
+}
+
+void	loopterm(t_data shelldata)
+{
+	int	status;
+
+	while (1)
+	{
+		status = minishell_input(&shelldata);
+		if (status == 0)
+			continue ;
+		else if (status == -1)
+			break ;
+		// execution
+	}
+}
+
+t_data	init_env(char **envp)
+{
+	t_data	shelldata;
+
+	if (access("/tmp", F_OK) == -1)
+		perr_exit("access /tmp", 1);
+	g_sig = 0;
+	ft_memset(&shelldata, 0, sizeof(t_data));
+	shelldata.var_lst = copy_envp(envp);
+	shelldata.last_exit_code = 0;
+	term_setup();
+	signal_action();
+	return (shelldata);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	t_data	shelldata;
 
-	(void)argv;
 	(void)argc;
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-			break ;
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue ;
-		}
-		add_history(input);
-		handle_input(input, envp);
-		free(input);
-	}
-	write_history(".minishell_history");
-	return (0);
+	(void)argv;
+	shelldata = init_env(envp);
+	loopterm(shelldata);
 }
 
-/* int	main(int argc, char **argv, char **envp)
-{
-	(void)argv; // Unused parameters
-	(void)argc;
+// static void	handle_input(char *input, char **envp)
+// {
+// 	t_ast	*ast;
 
-	char *input;
-	char **args;
-	t_ast *ast;
+// 	ast = parse_input(input); // Parse input into AST
+// 	if (!ast)
+// 	{
+// 		free(input);
+// 		return ;
+// 	}
+// 	execute_ast(ast, envp); // Execute the AST
+// 	free_ast(ast);          // Free the AST
+// }
 
-	while (1)
-	{
-		// Display prompt and read input
-		input = readline("minishell> ");
-		if (!input)
-			break ; // Exit on EOF (Ctrl+D)
-		// Skip empty input
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue ;
-		}
-		// Add input to history
-		add_history(input);
-		// Parse input into arguments
-		args = parse_input(input);
-		if (!args)
-		{
-			free(input);
-			continue ; // Skip if parsing fails
-		}
-		// Execute the command
-		if (execute_builtin(args, envp) == 0) // Try to execute as a built-in
-			execute_command(args, envp);
-		// Free allocated memory
-		free(input);
-		free(args);
-	}
+// static void	free_cmd_list(t_cmd *cmd_list)
+// {
+// 	t_cmd	*current;
+// 	t_cmd	*next;
 
-	// Save history and exit
-	write_history(".minishell_history");
-	return (0);
-} */
+// 	current = cmd_list;
+// 	while (current)
+// 	{
+// 		next = current->next;
+// 		free(current->command);
+// 		ft_arrfree(current->args);
+// 		free(current->input_redirect);
+// 		free(current->output_redirect);
+// 		free(current);
+// 		current = next;
+// 	}
+// }
+
+// int main(int argc, char **argv, char **envp)
+// {
+
+// }

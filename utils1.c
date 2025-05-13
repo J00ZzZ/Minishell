@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 09:34:24 by liyu-her          #+#    #+#             */
-/*   Updated: 2025/02/25 10:02:33 by liyu-her         ###   ########.fr       */
+/*   Created: 2025/04/08 12:24:06 by liyu-her          #+#    #+#             */
+/*   Updated: 2025/04/19 16:22:53 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "minishell.h"
 
-t_token **tokenize_input(char *input)
+void perr_exit(char *str, int exit_c)
 {
-    
-}
-
-t_token	parse_input(char *input)
-{
-	t_token **tokens;
-	t_ast *ast;
-	int index;
-
-    tokens = tokenize_input(input);
-    
+    ft_putstr_fd("minishell: ", STDERR_FILENO);
+    ft_putstr_fd(str, STDERR_FILENO);
+    perror(str);
+    exit(exit_c);
 }

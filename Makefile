@@ -7,10 +7,10 @@ TARGET = minishell
 
 # Source files
 SRCS = main.c \
-	   execution/parse_input.c\
 	   execution/execute_command.c\
 	   execution/execute_builtin.c\
 	   execution/is_builtin.c\
+	   execution/execute_pipeline.c\
 	   builtin/builtin_echo.c \
 	   builtin/builtin_cd.c \
 	   builtin/builtin_cd_utils.c \

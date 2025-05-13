@@ -1,26 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/18 20:24:19 by harleyng          #+#    #+#             */
+/*   Updated: 2025/03/18 20:29:22 by harleyng         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "execution.h"
 
-static char	*get_path(char *cmd, char **envp)
+static char	*find_full_path(char **paths, char *cmd)
 {
-	char	**paths;
 	char	*full_path;
 	int		i;
 
-	if (!cmd || !envp || ft_strchr(cmd, '/'))
-		return (access(cmd, X_OK) == 0 ? ft_strdup(cmd) : NULL);
-	paths = ft_split(getenv("PATH"), ':');
-	if (!paths)
-		return (NULL);
 	i = 0;
 	while (paths[i])
 	{
 		full_path = ft_strjoin_three(paths[i++], "/", cmd);
 		if (access(full_path, X_OK) == 0)
-			return (ft_arrfree(paths), full_path);
+			return full_path;
 		free(full_path);
 	}
-	return (ft_arrfree(paths), NULL);
+	return NULL;
 }
+
+static char	*get_path(char *cmd, char **envp)
+{
+	char	**paths;
+	char	*full_path;
+
+	if (!cmd || !envp || ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0)
+			return ft_strdup(cmd);
+		return NULL;
+	}
+
+	paths = ft_split(getenv("PATH"), ':');
+	if (!paths)
+		return NULL;
+
+	full_path = find_full_path(paths, cmd);
+	ft_arrfree(paths);
+	return full_path;
+}
+
 
 static void	handle_redirect(char *file, int flags, int std_fd)
 {
@@ -52,9 +80,12 @@ void	execute_external_command(t_cmd *cmd, char **envp)
 	if (pid == 0)
 	{
 		handle_redirect(cmd->input_redirect, O_RDONLY, STDIN_FILENO);
-		handle_redirect(cmd->output_redirect, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
+		handle_redirect(cmd->output_redirect, O_WRONLY | O_CREAT | O_TRUNC,
+			STDOUT_FILENO);
 		execve(full_path, cmd->args, envp);
-		perror("minishell"), free(full_path), exit(EXIT_FAILURE);
+		perror("minishell");
+		free(full_path);
+		exit(EXIT_FAILURE);
 	}
 	if (!cmd->is_background)
 		waitpid(pid, NULL, 0);

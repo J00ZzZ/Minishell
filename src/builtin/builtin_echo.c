@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:01:14 by harleyng          #+#    #+#             */
-/*   Updated: 2025/02/27 14:09:22 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:08:47 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
 char **builtin_echo(char **args, char **envp)
 {

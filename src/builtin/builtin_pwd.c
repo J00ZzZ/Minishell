@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:24:14 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/05 21:27:45 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:08:59 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
 char **builtin_pwd(char **args, char **envp)
 {

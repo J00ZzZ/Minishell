@@ -1,5 +1,4 @@
-#include "execution.h"
-#include "../builtin/builtin.h"
+#include "../../inc/minishell.h"
 
 char **execute_builtin(t_cmd *cmd, char **envp)
 {

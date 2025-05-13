@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:19:15 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/13 09:22:33 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:09:17 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../../inc/minishell.h"
 
 int is_builtin(t_cmd *cmd)
 {

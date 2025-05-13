@@ -2,6 +2,7 @@
 # define BUILTINS_H
 
 # include "../libft/libft.h"
+# include "minishell.h"
 # include <errno.h>
 # include <limits.h>
 # include <stdio.h>

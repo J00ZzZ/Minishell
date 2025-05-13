@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   token3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 08:20:59 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/05 13:57:58 by harleyng         ###   ########.fr       */
+/*   Created: 2025/05/08 07:53:54 by liyu-her          #+#    #+#             */
+/*   Updated: 2025/05/08 07:54:22 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
-char	**builtin_env(char **args, char **envp)
+void expand_dollar(t_token *token)
 {
-	int i;
-	(void)args;
-
-	i = 0;
-	while (envp[i])
-	{
-		ft_putendl_fd(envp[i], STDOUT_FILENO);
-		i++;
-	}
-
-	return (envp);
+    
 }

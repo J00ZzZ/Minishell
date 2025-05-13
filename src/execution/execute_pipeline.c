@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 07:26:22 by harleyng          #+#    #+#             */
-/*   Updated: 2025/05/13 21:51:02 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:49:47 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "../../inc/minishell.h"
 
 static void	close_pipe(int pipefd[2])
 {

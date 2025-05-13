@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 08:13:48 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/03 08:17:13 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:08:52 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
 char **builtin_exit(char **args, char **envp)
 {

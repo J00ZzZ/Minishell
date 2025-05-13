@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 07:38:09 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/13 07:38:10 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:08:42 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
 // Create the key=value string for the environment variable
 static char	*create_env_var(const char *key, const char *value)

@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 20:24:19 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/18 20:29:22 by harleyng         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "execution.h"
+#include "../../inc/minishell.h"
 
 static char	*find_full_path(char **paths, char *cmd)
 {
@@ -87,7 +75,5 @@ void	execute_external_command(t_cmd *cmd, char **envp)
 		free(full_path);
 		exit(EXIT_FAILURE);
 	}
-	if (!cmd->is_background)
-		waitpid(pid, NULL, 0);
 	free(full_path);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harleyng <harleyng@student.42.fr>          +#+  +:+       +#+        */
+/*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 07:22:48 by harleyng          #+#    #+#             */
-/*   Updated: 2025/03/14 18:49:01 by harleyng         ###   ########.fr       */
+/*   Updated: 2025/05/13 22:08:45 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "../../inc/minishell.h"
 
 // Get the value of an environment variable
 static char	*get_env_value(char **envp, const char *key)

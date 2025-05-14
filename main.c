@@ -6,7 +6,7 @@
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 21:57:13 by liyu-her          #+#    #+#             */
-/*   Updated: 2025/05/15 01:29:32 by liyu-her         ###   ########.fr       */
+/*   Updated: 2025/05/15 01:41:08 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	minishell_input(t_data *shelldata)
 	shelldata->token_root = ft_tokenization(shelldata->input, NULL);
 	// dollar_expansion(shelldata->token_root);
 	shelldata->cmd_root = ft_transit(shelldata->token_root, NULL, NULL);
-	print_cmd_list(shelldata->cmd_root);
 	return (1);
 }
 

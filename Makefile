@@ -31,7 +31,6 @@ SRCS = main.c \
 		src/tokenization/ft_valid.c \
 		src/tokenization/heredoc.c \
 		src/utils/transit_utils.c \
-		test.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)

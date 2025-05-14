@@ -6,7 +6,7 @@
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:56:19 by liyu-her          #+#    #+#             */
-/*   Updated: 2025/05/13 22:01:12 by liyu-her         ###   ########.fr       */
+/*   Updated: 2025/05/14 19:17:53 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,7 @@ char					*ft_limiter(char *token_root);
 int						make_heredoc_fd(t_token *token, int heredoc_id);
 int						input_heredoc(t_token *token, int heredoc_id);
 
+// redirect
+void					handle_redirection(t_token **tokens, t_cmd *cmd);
+int						is_redirection_token(t_token_type type);
 #endif

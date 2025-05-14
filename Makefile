@@ -22,14 +22,16 @@ SRCS = main.c \
 		src/parsing/env_signal.c \
 		src/parsing/env_cpy.c \
 		src/utils/utils1.c \
-		src/tokenization/token1.c \
-		src/tokenization/token2.c \
+		src/tokenization/token_utils.c \
+		src/tokenization/token_utils2.c \
 		src/tokenization/tokenize.c \
 		src/tokenization/tokentype.c \
 		src/tokenization/ischar.c \
 		src/tokenization/free_token.c \
 		src/tokenization/ft_valid.c \
 		src/tokenization/heredoc.c \
+		src/utils/transit_utils.c \
+		test.c \
 
 # Object files
 OBJS = $(SRCS:.c=.o)

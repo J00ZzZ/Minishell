@@ -23,17 +23,18 @@ extern int	g_sig;
 
 typedef struct s_cmd
 {
-	char *command;         // The command to execute
+	char *command;         // The command to execute done
 	char **args;           // Array of arguments (NULL-terminated)
-	char *input_redirect;  // File for input redirection (NULL if none)
-	char *output_redirect; // File for output redirection (NULL if none)
-	int		is_pipe;
-	struct s_cmd *next; // Next command in the pipeline (NULL if none)
+	char *input_redirect;  // File for input redirection (NULL if none) done
+	char *output_redirect; // File for output redirection (NULL if none) done
+	int is_pipe;           // done
+	struct s_cmd *next;    // Next command in the pipeline (NULL if none)
 }			t_cmd;
 
 typedef struct s_data
 {
 	t_token	*token_root;
+	t_cmd	*cmd_root;
 	char	**var_lst;
 	char	*input;
 	int		last_exit_code;
@@ -45,6 +46,14 @@ t_data		init_env(char **envp);
 int			ft_envp_len(char **envp);
 int			ft_strcmp(const char *s1, const char *s2);
 
+// parse to execution
+t_cmd		*ft_transit(t_token *token, t_cmd *head, t_cmd *cmd);
+void		ft_cmd(t_token **token, t_cmd *cmd);
+char		**add_arg_to_array(char **args, char *new_arg);
+int			count_args(char **args);
+
+// test
+void		print_cmd_list(t_cmd *cmd_list);
 #endif
 
 // typedef struct s_node

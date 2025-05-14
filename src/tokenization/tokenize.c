@@ -6,7 +6,7 @@
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 23:50:13 by liyu-her          #+#    #+#             */
-/*   Updated: 2025/05/13 12:15:39 by liyu-her         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:34:51 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,18 @@ t_token	*ft_tokenization(char *input, t_token *token_root)
 	}
 	return (tokens);
 }
+
+	// while (token)
+	// {
+	// 	printf("final: %s, type: %d, openend: %d\n", token->value, token->type,
+	// 		token->openend);
+	// 	token = token->next;
+	// }
+
+	// 	t_token *token = shelldata->token_root;
+	// while (token)
+	// {
+	// 	printf("final: %s, type: %d, openend: %d\n", token->value, token->type,
+	// 		token->openend);
+	// 	token = token->next;
+	// }

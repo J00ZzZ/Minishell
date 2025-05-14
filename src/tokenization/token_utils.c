@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token1.c                                           :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: liyu-her <liyu-her@student.42.kl>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 01:46:06 by liyu-her          #+#    #+#             */
-/*   Updated: 2025/05/11 03:30:50 by liyu-her         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:35:39 by liyu-her         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,4 @@ void	clean_token(t_token *token_root)
 	ft_word(token);
 	ft_word(token);
 	ft_combspce(token);
-	while (token)
-	{
-		printf("final: %s, type: %d, openend: %d\n", token->value, token->type,
-			token->openend);
-		token = token->next;
-	}
 }
